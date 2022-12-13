@@ -2,6 +2,7 @@
   font-size: 30px;
 }
 
+
 .navbarBrand::first-letter {
   color: #f21d1d;
 }
@@ -15,7 +16,7 @@
   font-weight: 700;
 }
 
-.btnStyle{
+.btnStyle {
   width: 3rem;
   height: 3rem;
 }
