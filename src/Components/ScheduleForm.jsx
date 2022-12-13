@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useLogin } from '../Hooks/useLogin'
 import { useTheme } from '../Hooks/useTheme'
 import styles from './ScheduleForm.module.css'
@@ -6,11 +7,13 @@ import styles from './ScheduleForm.module.css'
 const ScheduleForm = () => {
   const [dentistas, setDentistas] = useState([])
   const [pacientes, setPacientes] = useState([])
-  const [dentista1, setDentista] = useState('')
-  const [paciente1, setPaciente] = useState('')
-  const [horario1, setHorario] = useState('')
+  const [dentista, setDentista] = useState('')
+  const [paciente, setPaciente] = useState('')
+  const [horario, setHorario] = useState('')
 
   const { authToken, setAuthToken } = useLogin()
+
+  const navigate = useNavigate()
 
   const { theme } = useTheme()
 
@@ -42,12 +45,12 @@ const ScheduleForm = () => {
 
     const requestBody = JSON.stringify({
       paciente: {
-        matricula: paciente1
+        matricula: paciente
       },
       dentista: {
-        matricula: dentista1
+        matricula: dentista
       },
-      dataHoraAgendamento: horario1
+      dataHoraAgendamento: horario
     })
 
     const requestConfig = {
@@ -56,9 +59,16 @@ const ScheduleForm = () => {
       body: requestBody
     }
 
-    fetch(`https://dhodonto.ctdprojetos.com.br/consulta`, requestConfig)
-      .then(response => response.json())
-      .then(data => console.log(JSON.stringify(data)))
+    fetch(`https://dhodonto.ctdprojetos.com.br/consulta`, requestConfig).then(
+      response => {
+        if (response.ok) {
+          alert('Consulta agendada com sucesso')
+          navigate('/home')
+        } else {
+          alert('Ocorreu um erro')
+        }
+      }
+    )
   }
 
   return (
@@ -123,7 +133,15 @@ const ScheduleForm = () => {
           <div className={`row ${styles.rowSpacing}`}>
             {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-            <button className={`btn btn-light ${styles.button}`} type="submit">
+            {/* <button className={`btn btn-light ${styles.button}`} type="submit">
+              Schedule
+            </button> */}
+            <button
+              className={`btn btn-light ${styles.button}`}
+              type="submit"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
               Schedule
             </button>
           </div>
