@@ -1,25 +1,34 @@
 import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useLogin } from '../Hooks/useLogin'
 import { useTheme } from '../Hooks/useTheme'
 import styles from './Form.module.css'
 
 const LoginForm = () => {
-  const [authToken, setAuthToken] = useState('')
+  // const [authToken, setAuthToken] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState(false)
 
   const { handleSetAuthToken } = useLogin()
 
   const { theme, changeTheme } = useTheme()
 
-  const navigation = useNavigate('')
+  const navigate = useNavigate()
 
   // useEffect(() => {
   //   if (localStorage.getItem(authToken)) {
   //     navigation('home')
   //   }
   // }, [])
+
+  useEffect(() => {
+    if (username.length >= 5 && password.length >= 5) {
+      setError(false)
+    } else {
+      setError(true)
+    }
+  }, [username, password])
 
   const handleSubmit = e => {
     //Nesse handlesubmit você deverá usar o preventDefault,
@@ -52,10 +61,12 @@ const LoginForm = () => {
         if (response.ok) {
           response.json().then(data => {
             handleSetAuthToken(data.token)
-            navigation('/home')
+            navigate('/home')
           })
         } else {
-          alert('senha errada')
+          setUsername('')
+          setPassword('')
+          alert('Verifique suas informações novamente')
         }
       }
     )
@@ -65,7 +76,13 @@ const LoginForm = () => {
     <>
       {/* //Na linha seguinte deverá ser feito um teste se a aplicação
         // está em dark mode e deverá utilizar o css correto */}
-      <div className={`text-center card container ${theme} ${styles.card}`}>
+
+      <h1>Faça seu Login </h1>
+      <div
+        className={`text-center card container ${theme} ${styles.card} ${
+          error ? 'error' : ''
+        }`}
+      >
         <div className={`card-body ${styles.CardBody}`}>
           <form onSubmit={handleSubmit}>
             <input
@@ -73,18 +90,31 @@ const LoginForm = () => {
               placeholder="Login"
               name="login"
               required
+              aria-label="login"
               onChange={e => setUsername(e.target.value)}
             />
+
             <input
               className={`form-control ${styles.inputSpacing}`}
               placeholder="Password"
               name="password"
               type="password"
               required
+              aria-label="senha"
               onChange={e => setPassword(e.target.value)}
             />
-            <button className="btn btn-primary" type="submit">
-              Send
+            {error ? (
+              <small>
+                Preencha Login e Password com pelo menos 5 caracteres
+              </small>
+            ) : null}
+            <button
+              className="btn btn-primary"
+              type="submit"
+              aria-label="submit"
+              disabled={error}
+            >
+              Enviar
             </button>
           </form>
         </div>
