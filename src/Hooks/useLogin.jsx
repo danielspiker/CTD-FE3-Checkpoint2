@@ -6,16 +6,9 @@ const LoginContext = createContext()
 
 export function LoginProvider(props) {
   const loginLocalStorage = localStorage.getItem('authToken')
-
   const [authToken, setAuthToken] = useState(loginLocalStorage)
-  // loginLocalStorage === null ? null : loginLocalStorage
 
   function deleteToken() {
-    // if (tokenReceived !== authToken) {
-    //   setAuthToken(tokenReceived)
-    //   localStorage.setItem('authToken', tokenReceived)
-    // }
-
     localStorage.removeItem('authToken')
     setAuthToken(localStorage.getItem('authToken'))
   }

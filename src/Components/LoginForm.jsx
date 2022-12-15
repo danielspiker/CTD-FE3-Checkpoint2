@@ -9,18 +9,9 @@ const LoginForm = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(false)
-
   const { handleSetAuthToken } = useLogin()
-
-  const { theme, changeTheme } = useTheme()
-
+  const { theme } = useTheme()
   const navigate = useNavigate()
-
-  // useEffect(() => {
-  //   if (localStorage.getItem(authToken)) {
-  //     navigation('home')
-  //   }
-  // }, [])
 
   useEffect(() => {
     if (username.length >= 5 && password.length >= 5) {
@@ -31,13 +22,6 @@ const LoginForm = () => {
   }, [username, password])
 
   const handleSubmit = e => {
-    //Nesse handlesubmit você deverá usar o preventDefault,
-    //enviar os dados do formulário e enviá-los no corpo da requisição
-    //para a rota da api que faz o login /auth
-    //lembre-se que essa rota vai retornar um Bearer Token e o mesmo deve ser salvo
-    //no localstorage para ser usado em chamadas futuras
-    //Com tudo ocorrendo corretamente, o usuário deve ser redirecionado a página principal,com react-router
-    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
     e.preventDefault()
 
     const userData = {
@@ -74,9 +58,6 @@ const LoginForm = () => {
 
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
-
       <h1>Faça seu Login </h1>
       <div
         className={`text-center card container ${theme} ${styles.card} ${

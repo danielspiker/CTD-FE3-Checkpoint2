@@ -1,10 +1,5 @@
 import { render } from '@testing-library/react'
 import { BrowserRouter, MemoryRouter, Routes, Route } from 'react-router-dom'
-// import { ContextProvider } from '../Components/utils/global.context'
-import Home from '../Routes/Home'
-import Detail from '../Routes/Detail'
-import Login from '../Routes/Login'
-import App from '../App'
 import { LoginProvider } from '../Hooks/useLogin'
 import { ThemeProvider } from '../Hooks/useTheme'
 
@@ -14,9 +9,6 @@ const renderWithContext = (ui, providerValue) => {
       <LoginProvider>
         <ThemeProvider>{ui}</ThemeProvider>
       </LoginProvider>
-      {/* <ContextProvider value={providerValue || { theme: 'light', data: [] }}> */}
-
-      {/* </ContextProvider> */}
     </BrowserRouter>
   )
 }

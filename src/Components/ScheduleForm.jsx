@@ -18,8 +18,6 @@ const ScheduleForm = () => {
   const { theme } = useTheme()
 
   useEffect(() => {
-    //Nesse useEffect, você vai fazer um fetch na api buscando TODOS os dentistas
-    //e pacientes e carregar os dados em 2 estados diferentes
     fetch('https://dhodonto.ctdprojetos.com.br/dentista')
       .then(response => response.json())
       .then(dentista => setDentistas(dentista))
@@ -30,11 +28,6 @@ const ScheduleForm = () => {
   }, [])
 
   const handleSubmit = event => {
-    //Nesse handlesubmit você deverá usar o preventDefault,
-    //obter os dados do formulário e enviá-los no corpo da requisição
-    //para a rota da api que marca a consulta
-    //lembre-se que essa rota precisa de um Bearer Token para funcionar.
-    //Lembre-se de usar um alerta para dizer se foi bem sucedido ou ocorreu um erro
     event.preventDefault()
 
     const requestHeaders = {
@@ -73,8 +66,6 @@ const ScheduleForm = () => {
 
   return (
     <>
-      {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
       <div className={`text-center container ${theme}`}>
         <form onSubmit={handleSubmit}>
           <div className={`row ${styles.rowSpacing}`}>
@@ -88,7 +79,6 @@ const ScheduleForm = () => {
                 id="dentist"
                 onChange={e => setDentista(e.target.value)}
               >
-                {/*Aqui deve ser feito um map para listar todos os dentistas*/}
                 {dentistas.map(dentista => (
                   <option key={dentista.matricula} value={dentista.matricula}>
                     {dentista.nome}
@@ -107,7 +97,6 @@ const ScheduleForm = () => {
                 id="patient"
                 onChange={e => setPaciente(e.target.value)}
               >
-                {/*Aqui deve ser feito um map para listar todos os pacientes*/}
                 {pacientes.map(paciente => (
                   <option key={paciente.matricula} value={paciente.matricula}>
                     {paciente.nome}
@@ -131,18 +120,13 @@ const ScheduleForm = () => {
             </div>
           </div>
           <div className={`row ${styles.rowSpacing}`}>
-            {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar o css correto */}
-            {/* <button className={`btn btn-light ${styles.button}`} type="submit">
-              Schedule
-            </button> */}
             <button
               className={`btn btn-light ${styles.button}`}
               type="submit"
               data-bs-toggle="modal"
               data-bs-target="#exampleModal"
             >
-              Schedule
+              Agendar
             </button>
           </div>
         </form>

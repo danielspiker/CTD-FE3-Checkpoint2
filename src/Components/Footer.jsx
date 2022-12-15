@@ -16,14 +16,10 @@ const Footer = () => {
         >
           Voltar para o topo
         </button>
-        {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-        // está em dark mode e deverá utilizar a class navbar-dark bg-dark ou navbar-light bg-light  */}
         <div className={`navbar-${theme} bg-${theme} ${styles.footer}`}>
           <div className="container">
             <div className={`row`}>
               <div className="col-sm-12 col-lg-6">
-                {/* //Na linha seguinte deverá ser feito um teste se a aplicação
-                // está em dark mode e deverá utilizar o css correto */}
                 <img
                   className={`${styles.dhLogo}`}
                   src="/images/DH.png"
